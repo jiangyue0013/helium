@@ -41,7 +41,7 @@ class SideBar(models.Model):
     )
     
     title = models.CharField(max_length=50, verbose_name="标题")
-    displey_type = models.PositiveIntegerField(default=1, choices=SIDE_TYPE, 
+    display_type = models.PositiveIntegerField(default=1, choices=SIDE_TYPE, 
         verbose_name="展示类型")
     content = models.CharField(max_length=500, blank=True, verbose_name="内容", 
         help_text="如果设置的不是 HTML 类型，可为空。")
