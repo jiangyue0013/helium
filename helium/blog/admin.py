@@ -68,7 +68,7 @@ class PostAdmin(BaseOwnerAdmin):
             'description': '基础配置描述',
             'fields': (
                 ('title', 'category'),
-                ('status', 'owner',),
+                ('status',),
             ),
         }),
         ('内容', {
