@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.sitemaps import views as sitemap_views
 from django.db.models.indexes import Index
 from django.urls import re_path
 
@@ -22,6 +23,8 @@ from blog.views import (
     IndexView, CategoryView, TagView,
     PostDetailView, SearchView, AuthorView
 )
+from blog.rss import LatestPostFeed
+from blog.sitemap import PostSitemap
 from comment.views import CommentView
 from config.views import LinkListView
 
@@ -35,6 +38,8 @@ urlpatterns = [
     re_path(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name="tag-list"),
     re_path(r'^post/(?P<post_id>\d+)$', PostDetailView.as_view(), name="post-detail"),
     re_path(r'^comment/$', CommentView.as_view(), name="comment"),
+    re_path(r'^rss|feed/$', LatestPostFeed(), name="rss"),
+    re_path(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
     re_path(r'^super_admin/', admin.site.urls, name="super-admin"),
     re_path(r'^admin/', custom_site.urls, name="admin"),
 ]

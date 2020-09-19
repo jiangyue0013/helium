@@ -2,6 +2,7 @@ import mistune
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.functional import cached_property
 
 
 class Category(models.Model):
@@ -86,7 +87,7 @@ class Post(models.Model):
         choices=STATUS_ITEMS, verbose_name="状态")
     category = models.ForeignKey(Category, verbose_name="分类", 
         on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, verbose_name="标签")
+    tag = models.ManyToManyField(Tag, verbose_name="标签")
     owner = models.ForeignKey(User, verbose_name="作者", 
         on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, 
@@ -97,6 +98,10 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.content_html = mistune.markdown(self.content)
         super().save(*args, **kwargs)
+    
+    @cached_property
+    def tags(self):
+        return ','.join(self.tag.values_list('name', flat=True))
 
     @staticmethod
     def hot_posts(cls):

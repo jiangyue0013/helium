@@ -52,7 +52,8 @@ class PostAdmin(BaseOwnerAdmin):
     form = PostAdminForm
     list_display = [
         'title', 'category', 'status',
-        'created_time', 'operator'
+        'created_time', 'operator', 'uv',
+        'pv'
     ]
     list_display_links = []
 
@@ -79,10 +80,10 @@ class PostAdmin(BaseOwnerAdmin):
         }),
         ('额外信息', {
             'classes': ('collapse',),
-            'fields': ('tags',),
+            'fields': ('tag',),
         })
     )
-    filter_horizontal = ('tags', )
+    filter_horizontal = ('tag', )
 
     def operator(self, obj):
         return format_html(
