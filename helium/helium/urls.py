@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls import include
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
-from django.db.models.indexes import Index
 from django.urls import re_path
 
 from .custom_site import custom_site
@@ -36,10 +38,11 @@ urlpatterns = [
     re_path(r'^search/$', SearchView.as_view(), name="search"),
     re_path(r'^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name="category-list"),
     re_path(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name="tag-list"),
-    re_path(r'^post/(?P<post_id>\d+)$', PostDetailView.as_view(), name="post-detail"),
+    re_path(r'^post/(?P<post_id>\d+)/$', PostDetailView.as_view(), name="post-detail"),
     re_path(r'^comment/$', CommentView.as_view(), name="comment"),
     re_path(r'^rss|feed/$', LatestPostFeed(), name="rss"),
     re_path(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     re_path(r'^super_admin/', admin.site.urls, name="super-admin"),
     re_path(r'^admin/', custom_site.urls, name="admin"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

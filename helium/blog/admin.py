@@ -93,8 +93,10 @@ class PostAdmin(BaseOwnerAdmin):
     operator.short_description = '操作'
     
     class Media:
-        # 引入自定义的 css 和 js 文件
-        css = {
-            'all':('URI')
-        }
-        js = ('URI')
+        # # 引入自定义的 css 和 js 文件
+        # css = {
+        #     'all':('URI')
+        # }
+        # js = ('URI')
+        # js=('js/jquery.min.js',)
+        pass

@@ -29,11 +29,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 我们自己写的和安装的 app
+    'ckeditor',
+    'ckeditor_uploader',
     'helium',
     'blog',
     'comment',
     'config',
-    
+    # django 自己的 app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +131,25 @@ STATIC_ROOT = 'tmp/static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "themes", THEME, "static")
 ]
+
+
+# 上传图片的相关配置
+MEDIA_URL = "/meida/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "article_images"
+
+
+# 自定义文件存储
+DEFAULT_FILE_STORAGE = 'helium.storage.WatermarkStorage'
+
+
+# ckeditor 配置
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',  # 配置代码插件
+    }
+}
