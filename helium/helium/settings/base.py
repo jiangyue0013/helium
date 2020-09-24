@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # 我们自己写的和安装的 app
+    'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
     'helium',
@@ -134,7 +135,7 @@ STATICFILES_DIRS = [
 
 
 # 上传图片的相关配置
-MEDIA_URL = "/meida/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 CKEDITOR_UPLOAD_PATH = "article_images"
 
@@ -152,4 +153,10 @@ CKEDITOR_CONFIGS = {
         'tabSpaces': 4,
         'extraPlugins': 'codesnippet',  # 配置代码插件
     }
+}
+
+# rest-framework 配置
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2,
 }

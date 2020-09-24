@@ -19,8 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 from django.urls import re_path
+from rest_framework.routers import DefaultRouter
 
 from .custom_site import custom_site
+from blog.apis import PostViewSet, CategoryViewSet
 from blog.views import (
     IndexView, CategoryView, TagView,
     PostDetailView, SearchView, AuthorView
@@ -29,6 +31,11 @@ from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 from comment.views import CommentView
 from config.views import LinkListView
+
+
+router = DefaultRouter()
+router.register(r'post', PostViewSet, basename='api-post')
+router.register(r'category', CategoryViewSet, basename='api-category')
 
 
 urlpatterns = [
@@ -43,6 +50,9 @@ urlpatterns = [
     re_path(r'^rss|feed/$', LatestPostFeed(), name="rss"),
     re_path(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # re_path(r'^api/post/', post_list, name="post-list"),
+    # re_path(r'^api/post/', PostList.as_view(), name="post-list"),
+    re_path(r'^api/', include(router.urls)),
     re_path(r'^super_admin/', admin.site.urls, name="super-admin"),
     re_path(r'^admin/', custom_site.urls, name="admin"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
