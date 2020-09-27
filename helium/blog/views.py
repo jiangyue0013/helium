@@ -7,9 +7,11 @@ from django.views.generic import ListView, DetailView
 
 from .models import Category, Post, Tag
 from config.models import SideBar
+from silk.profiling.profiler import silk_profile
 
 
 class CommonViewMixin:
+    @silk_profile(name="get_navs")
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
@@ -88,7 +90,7 @@ class TagView(IndexView):
         """ 重写 queryset，根据标签过滤 """
         queryset = super().get_queryset()
         tag_id = self.kwargs.get('tag_id')
-        return queryset.filter(tag_id=tag_id)
+        return queryset.filter(tag=tag_id)
 
 
 class PostDetailView(CommonViewMixin, DetailView):

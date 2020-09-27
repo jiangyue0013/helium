@@ -68,19 +68,19 @@ class SideBar(models.Model):
             result = self.content
         elif self.display_type == self.DISPLAY_LATEST:
             context = {
-                'posts': Post.latest_posts()
+                'posts': Post.latest_posts(with_related=False),
             }
-            result = render_to_string('config/blocks/siderbar_posts.html', context)
+            result = render_to_string('config/blocks/sidebar_posts.html', context)
         elif self.display_type == self.DISPLAY_HOT:
             context = {
-                'posts': Post.hot_posts()
+                'posts': Post.hot_posts(),
             }
-            result = render_to_string('config/blocks/siderbar_posts.html', context)
+            result = render_to_string('config/blocks/sidebar_posts.html', context)
         elif self.display_type == self.DISPLAY_COMMENT:
             context = {
-                'comments': Comment.objects.filter(status=Comment.STATUS_NORMAL)
+                'comments': Comment.objects.filter(status=Comment.STATUS_NORMAL),
             }
-            result = render_to_string('config/blocks/siderbar_comments.html', context)
+            result = render_to_string('config/blocks/sidebar_comments.html', context)
         return result
     
     @classmethod
