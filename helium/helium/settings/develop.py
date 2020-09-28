@@ -29,8 +29,8 @@ INSTALLED_APPS += [
 ]
 
 MIDDLEWARE += [
-    # 'silk.middleware.SilkyMiddleware',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'silk.middleware.SilkyMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 INTERNAL_IPS = ['127.0.0.1']

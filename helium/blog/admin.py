@@ -66,19 +66,21 @@ class PostAdmin(BaseOwnerAdmin):
 
     fieldsets = (
         ('基础配置', {
-            'description': '基础配置描述',
+            'description': '设置文章的标题、分类和状态。',
             'fields': (
                 ('title', 'category'),
                 ('status',),
             ),
         }),
         ('内容', {
+            'description': '设置文章的摘要和内容。',
             'fields': (
                 'desc',
                 'content',
             ),
         }),
         ('额外信息', {
+            'description': '设置文章的标签',
             'classes': ('collapse',),
             'fields': ('tag',),
         })
